@@ -1,5 +1,5 @@
 import { type ElementType } from "react"
-import { Users, Mars, Venus, Check, X, UserCheck, Cross } from "lucide-react"
+import { Users, Mars, Venus, Check, UserCheck } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card"
 import type { Faritra } from "../data/faritra"
 import FaritraChart from "./FaritraChart"
@@ -41,19 +41,16 @@ const statConfig = [
   { icon: Mars, label: "Lahy" },
   { icon: Venus, label: "Vavy" },
   { icon: Check, label: "Vita Batisa" },
-  { icon: X, label: "Tsy Batisa" },
   { icon: Check, label: "Mpandray" },
-  { icon: X, label: "Tsy Mpandray" },
   { icon: UserCheck, label: "Tête de famille" },
-  { icon: Cross, label: "Nodimandry" },
 ]
 
 function StatCard({ icon: Icon, label, value }: { icon: ElementType; label: string; value: number }) {
   return (
     <div className="group relative overflow-hidden rounded-xl border bg-card p-4 shadow-sm transition-all duration-300 hover:shadow-md hover:-translate-y-0.5">
       <div className="flex items-center gap-3">
-        <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#f0f0f0] shadow-sm ring-1 ring-black/5 dark:bg-[#1a1a1a] dark:ring-white/5">
-          <Icon className="h-5 w-5 text-[#525252] dark:text-[#a3a3a3]" />
+        <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 shadow-sm ring-1 ring-primary/20">
+          <Icon className="h-5 w-5 text-primary" />
         </div>
         <div>
           <p className="text-2xl font-bold tracking-tight">{value}</p>
@@ -70,18 +67,15 @@ export default function FaritraDashboard({ faritraList }: { faritraList: Faritra
   const totalLahy = allStats.reduce((a, s) => a + s.lahy, 0)
   const totalVavy = allStats.reduce((a, s) => a + s.vavy, 0)
   const totalBatisa = allStats.reduce((a, s) => a + s.batisaEny, 0)
-  const totalBatisaTsia = allStats.reduce((a, s) => a + s.batisaTsia, 0)
   const totalMpandray = allStats.reduce((a, s) => a + s.mpandrayEny, 0)
-  const totalMpandrayTsia = allStats.reduce((a, s) => a + s.mpandrayTsia, 0)
   const totalTete = allStats.reduce((a, s) => a + s.teteDeFamille, 0)
-  const totalDeces = allStats.reduce((a, s) => a + s.deces, 0)
 
-  const values = [total, totalLahy, totalVavy, totalBatisa, totalBatisaTsia, totalMpandray, totalMpandrayTsia, totalTete, totalDeces]
+  const values = [total, totalLahy, totalVavy, totalBatisa, totalMpandray, totalTete]
 
   return (
     <div className="space-y-6">
       <div className="flex items-center gap-3">
-        <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#f0f0f0] text-[#404040] dark:bg-[#1a1a1a] dark:text-[#a3a3a3]">
+        <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary/10 text-primary">
           <Users className="h-5 w-5" />
         </div>
         <div>
@@ -90,7 +84,7 @@ export default function FaritraDashboard({ faritraList }: { faritraList: Faritra
         </div>
       </div>
 
-      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
         {statConfig.map((cfg, i) => (
           <StatCard key={cfg.label} {...cfg} value={values[i]} />
         ))}
@@ -99,7 +93,7 @@ export default function FaritraDashboard({ faritraList }: { faritraList: Faritra
       <FaritraChart faritraList={faritraList} />
 
       <Card className="overflow-hidden border shadow-sm">
-        <CardHeader className="border-b bg-[#fafafa] dark:bg-[#0d0d0d]">
+        <CardHeader className="border-b bg-primary/[0.02]">
           <CardTitle className="flex items-center gap-2 text-base">
             <Users className="h-4 w-4" />
             Faritra tsirairay
@@ -109,7 +103,7 @@ export default function FaritraDashboard({ faritraList }: { faritraList: Faritra
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b bg-[#f5f5f5] text-left text-[11px] font-semibold uppercase tracking-wider text-muted-foreground dark:bg-[#0f0f0f]">
+                <tr className="border-b bg-primary/5 text-left text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
                   <th className="px-3 py-3 sm:px-4">Faritra</th>
                   <th className="px-3 py-3 sm:px-4">Total</th>
                   <th className="hidden sm:table-cell px-3 py-3 sm:px-4">Lahy</th>
@@ -128,11 +122,11 @@ export default function FaritraDashboard({ faritraList }: { faritraList: Faritra
                   return (
                     <tr
                       key={s.id}
-                      className="border-b last:border-0 transition-colors duration-150 hover:bg-[#fafafa] dark:hover:bg-[#0d0d0d]"
+                      className="border-b last:border-0 transition-colors duration-150 hover:bg-primary/[0.02]"
                     >
                       <td className="px-3 py-3 font-medium capitalize sm:px-4">
                         <span className="inline-flex items-center gap-2">
-                          <span className="flex h-6 w-6 items-center justify-center rounded-md bg-[#e5e5e5] text-[10px] font-bold text-[#525252] dark:bg-[#262626] dark:text-[#a3a3a3]">
+                          <span className="flex h-6 w-6 items-center justify-center rounded-md bg-primary/10 text-[10px] font-bold text-primary">
                             {s.name.charAt(0).toUpperCase()}
                           </span>
                           {s.name}

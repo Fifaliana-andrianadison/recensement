@@ -145,6 +145,8 @@ export default function FaritraTable({ personnes, faritraId }: FaritraTableProps
         for (let i = 1; i < rows.length; i++) {
           const r = rows[i]
           if (!r || !r[1]?.toString().trim()) continue
+          const teteRaw = r[9]?.toString().trim().toLowerCase() || ""
+          const isTete = ["eny", "oui", "1", "true", "x", "✓", "o"].includes(teteRaw)
           addPersonne(faritraId, {
             anarana: r[1]?.toString().trim() || "",
             datyNaterahana: r[2]?.toString().trim() || "",
@@ -154,7 +156,7 @@ export default function FaritraTable({ personnes, faritraId }: FaritraTableProps
             datyMandray: r[6]?.toString().trim() || "",
             tel: r[7]?.toString().trim() || "",
             adiresy: r[8]?.toString().trim() || "",
-            teteDeFamille: false,
+            teteDeFamille: isTete,
             deces: false,
           })
           count++
@@ -422,7 +424,7 @@ export default function FaritraTable({ personnes, faritraId }: FaritraTableProps
               </div>
 
               <div className="flex flex-wrap items-center gap-2 pb-1">
-                <label className="flex h-9 cursor-pointer items-center gap-1.5 rounded-md border px-2.5 text-sm transition-colors hover:bg-[#f5f5f5] dark:hover:bg-[#1a1a1a] data-[checked=true]:border-foreground data-[checked=true]:bg-[#f0f0f0] dark:data-[checked=true]:bg-[#1a1a1a]"
+                <label className="flex h-9 cursor-pointer items-center gap-1.5 rounded-md border px-2.5 text-sm transition-colors hover:bg-primary/5 data-[checked=true]:border-primary data-[checked=true]:bg-primary/10"
                   data-checked={teteOnly}
                 >
                   <input
@@ -437,7 +439,7 @@ export default function FaritraTable({ personnes, faritraId }: FaritraTableProps
                   <span className="text-xs font-medium">Tête de famille</span>
                 </label>
 
-                <label className="flex h-9 cursor-pointer items-center gap-1.5 rounded-md border px-2.5 text-sm transition-colors hover:bg-[#f5f5f5] dark:hover:bg-[#1a1a1a] data-[checked=true]:border-foreground data-[checked=true]:bg-[#f0f0f0] dark:data-[checked=true]:bg-[#1a1a1a]"
+                <label className="flex h-9 cursor-pointer items-center gap-1.5 rounded-md border px-2.5 text-sm transition-colors hover:bg-primary/5 data-[checked=true]:border-primary data-[checked=true]:bg-primary/10"
                   data-checked={publipostage}
                 >
                   <input
@@ -460,7 +462,7 @@ export default function FaritraTable({ personnes, faritraId }: FaritraTableProps
 
                 <button
                   onClick={() => { setPdfTable(true); setPublipostage(false) }}
-                  className="flex h-9 items-center gap-1.5 rounded-md border px-2.5 text-xs font-medium text-muted-foreground transition-colors hover:bg-[#f5f5f5] hover:text-foreground dark:hover:bg-[#1a1a1a]"
+                  className="flex h-9 items-center gap-1.5 rounded-md border px-2.5 text-xs font-medium text-muted-foreground transition-colors hover:bg-primary/5 hover:text-foreground"
                 >
                   <FileDown className="h-3.5 w-3.5" />
                   PDF Tableau
@@ -477,7 +479,7 @@ export default function FaritraTable({ personnes, faritraId }: FaritraTableProps
                 </button>
                 <button
                   onClick={() => fileInputRef.current?.click()}
-                  className="flex h-9 items-center gap-1.5 rounded-lg border px-3.5 text-xs font-medium transition-colors hover:bg-[#f5f5f5] hover:text-foreground dark:hover:bg-[#1a1a1a]"
+                  className="flex h-9 items-center gap-1.5 rounded-lg border px-3.5 text-xs font-medium transition-colors hover:bg-primary/5 hover:text-foreground"
                   title="Import CSV / XLSX / ODS"
                 >
                   <Upload className="h-4 w-4" />
@@ -503,7 +505,7 @@ export default function FaritraTable({ personnes, faritraId }: FaritraTableProps
         <div className="max-h-[calc(100vh-20rem)] overflow-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="sticky top-0 z-10 bg-[#f5f5f5] shadow-sm dark:bg-[#0f0f0f]">
+              <tr className="sticky top-0 z-10 bg-primary/5 shadow-sm">
                 <th className="w-10 px-2 py-3 text-left text-[11px] font-semibold uppercase tracking-wider sm:px-3">#</th>
                 <th className="px-2 py-3 text-left text-[11px] font-semibold uppercase tracking-wider sm:px-3">Anarana</th>
                 <th className="hidden sm:table-cell px-2 py-3 text-left text-[11px] font-semibold uppercase tracking-wider sm:px-3">Daty nahaterahana</th>
@@ -541,13 +543,13 @@ export default function FaritraTable({ personnes, faritraId }: FaritraTableProps
                   return (
                     <tr
                       key={p.id}
-                      className={`border-b transition-all duration-150 ${
+                       className={`border-b transition-all duration-150 ${
                         isDeces
-                          ? "bg-[#f5f5f5] dark:bg-[#111]"
+                          ? "bg-primary/[0.02]"
                           : isHead
-                          ? "bg-[#fafafa] dark:bg-[#0d0d0d]"
+                          ? "bg-primary/[0.01]"
                           : ""
-                      } hover:bg-[#f0f0f0] dark:hover:bg-[#141414]`}
+                      } hover:bg-primary/5`}
                     >
                       <td className={`px-2 py-2.5 sm:px-3 ${isDeces ? "text-[#a3a3a3]" : "text-muted-foreground"}`}>
                         <span className="inline-flex items-center gap-1 text-xs sm:text-sm">
@@ -559,20 +561,20 @@ export default function FaritraTable({ personnes, faritraId }: FaritraTableProps
                         <div className="flex flex-col gap-0.5 sm:flex-row sm:items-center sm:gap-1.5">
                           <div className="flex items-center gap-1">
                             {isHead && !isDeces && (
-                              <span className="inline-flex items-center rounded border border-[#d4d4d4] bg-[#f0f0f0] px-1 py-0 text-[9px] font-semibold text-[#525252] dark:border-[#333] dark:bg-[#1a1a1a] dark:text-[#a3a3a3]">
+                              <span className="inline-flex items-center rounded border border-primary/20 bg-primary/10 px-1 py-0 text-[9px] font-semibold text-primary">
                                 Tête
                               </span>
                             )}
                             {isDeces && <DecesBadge />}
                           </div>
-                          <span className={`text-xs sm:text-sm ${isDeces ? "text-[#a3a3a3] line-through dark:text-[#666]" : ""} ${isHead ? "font-bold" : ""}`}>
+                          <span className={`text-xs sm:text-sm ${isDeces ? "text-muted-foreground line-through" : ""} ${isHead ? "font-bold" : ""}`}>
                             {p.anarana}
                           </span>
                         </div>
                       </td>
                       <td className="hidden sm:table-cell px-2 py-2.5 text-xs text-muted-foreground sm:px-3 sm:text-sm">{p.datyNaterahana}</td>
                       <td className="px-2 py-2.5 sm:px-3">
-                        <span className="inline-flex items-center rounded border px-1.5 py-0.5 text-[10px] font-semibold tabular-nums dark:border-[#262626] dark:bg-[#262626] dark:text-[#d4d4d4]">{age} ans</span>
+                        <span className="inline-flex items-center rounded-md border border-primary/20 bg-primary/[0.03] px-1.5 py-0.5 text-[10px] font-semibold tabular-nums text-primary">{age} ans</span>
                       </td>
                       <td className="px-2 py-2.5 sm:px-3">
                         <GenderBadge value={p.lahyVavy} />
@@ -600,7 +602,7 @@ export default function FaritraTable({ personnes, faritraId }: FaritraTableProps
                         <div className="flex items-center justify-center gap-0.5">
                           <button
                             onClick={() => handleEdit(p)}
-                            className="flex h-7 w-7 items-center justify-center rounded-md text-muted-foreground opacity-60 transition-all duration-200 hover:bg-[#f0f0f0] hover:text-foreground hover:opacity-100 dark:hover:bg-[#1a1a1a] sm:h-8 sm:w-8"
+                            className="flex h-7 w-7 items-center justify-center rounded-md text-muted-foreground opacity-60 transition-all duration-200 hover:bg-primary/10 hover:text-foreground hover:opacity-100 sm:h-8 sm:w-8"
                             title="Hanova"
                           >
                             <Pencil className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
@@ -609,8 +611,8 @@ export default function FaritraTable({ personnes, faritraId }: FaritraTableProps
                             onClick={() => markDeces(faritraId, p.id)}
                             className={`flex h-7 w-7 items-center justify-center rounded-md transition-all duration-200 sm:h-8 sm:w-8 ${
                               isDeces
-                                ? "opacity-80 hover:bg-[#e5e5e5] dark:hover:bg-[#262626]"
-                                : "text-muted-foreground opacity-60 hover:bg-[#e5e5e5] hover:text-foreground hover:opacity-100 dark:hover:bg-[#262626]"
+                                ? "opacity-80 hover:bg-primary/10"
+                                : "text-muted-foreground opacity-60 hover:bg-primary/10 hover:text-foreground hover:opacity-100"
                             }`}
                             title={isDeces ? "Hanesorina ny deces" : "Ho deces"}
                           >
@@ -618,7 +620,7 @@ export default function FaritraTable({ personnes, faritraId }: FaritraTableProps
                           </button>
                           <button
                             onClick={() => handleDelete(p)}
-                            className="flex h-7 w-7 items-center justify-center rounded-md text-muted-foreground opacity-60 transition-all duration-200 hover:bg-[#e5e5e5] hover:text-foreground hover:opacity-100 dark:hover:bg-[#262626] sm:h-8 sm:w-8"
+                            className="flex h-7 w-7 items-center justify-center rounded-md text-muted-foreground opacity-60 transition-all duration-200 hover:bg-primary/10 hover:text-foreground hover:opacity-100 sm:h-8 sm:w-8"
                             title="Vonoy"
                           >
                             <Trash2 className="h-3 w-3 sm:h-3.5 sm:w-3.5" />

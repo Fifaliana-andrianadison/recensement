@@ -1,5 +1,6 @@
-import { Cross, ChevronRight, Home, MapPin } from "lucide-react"
+import { ChevronRight, Home, MapPin } from "lucide-react"
 import { useFaritra } from "./FaritraContext"
+import Logo from "./Logo"
 
 type NavbarProps = {
   activeView: string
@@ -16,8 +17,8 @@ export default function Navbar({ activeView, onNavigate }: NavbarProps) {
     <header className="sticky top-0 z-20 border-b bg-background/80 shadow-sm backdrop-blur-xl">
       <div className="flex h-16 items-center justify-between px-4 lg:px-6">
         <div className="flex items-center gap-3 lg:ml-0">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#f0f0f0] text-[#404040] dark:bg-[#1a1a1a] dark:text-[#a3a3a3] lg:hidden">
-            <Cross className="h-4 w-4" />
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg lg:hidden">
+            <Logo className="h-8 w-8" />
           </div>
 
           <nav className="hidden items-center gap-1.5 text-sm text-muted-foreground sm:flex">
@@ -33,7 +34,7 @@ export default function Navbar({ activeView, onNavigate }: NavbarProps) {
             {!isDashboard && (
               <>
                 <ChevronRight className="h-3.5 w-3.5" />
-                <span className="inline-flex items-center gap-1.5 rounded-md bg-[#f0f0f0] px-2 py-1 font-semibold text-[#404040] dark:bg-[#1a1a1a] dark:text-[#a3a3a3]">
+                <span className="inline-flex items-center gap-1.5 rounded-md bg-primary/10 px-2 py-1 font-semibold text-primary">
                   <MapPin className="h-3.5 w-3.5" />
                   {currentFaritra?.name}
                 </span>

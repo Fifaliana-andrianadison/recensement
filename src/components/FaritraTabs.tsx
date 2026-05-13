@@ -24,11 +24,11 @@ export default function FaritraTabs({ activeView }: FaritraTabsProps) {
 
   return (
     <Card className="border shadow-sm">
-      <CardHeader className="border-b bg-[#fafafa] dark:bg-[#0d0d0d]">
+      <CardHeader className="border-b bg-primary/[0.02]">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <CardTitle className="flex items-center gap-2 text-xl">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#f0f0f0] text-[#404040] ring-1 ring-black/10 dark:bg-[#1a1a1a] dark:text-[#a3a3a3] dark:ring-white/10">
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10 text-primary">
                 <MapPin className="h-4 w-4" />
               </div>
               {faritra.name}

@@ -137,12 +137,12 @@ export default function FaritraChart({ faritraList }: { faritraList: Faritra[] }
 
     const dark = isDark()
     const faritraColors = dark
-      ? ["hsla(0, 0%, 70%, 0.75)", "hsla(0, 0%, 55%, 0.75)", "hsla(0, 0%, 40%, 0.75)"]
-      : ["hsla(0, 0%, 35%, 0.75)", "hsla(0, 0%, 50%, 0.75)", "hsla(0, 0%, 65%, 0.75)"]
+      ? ["hsla(217, 91%, 65%, 0.75)", "hsla(173, 80%, 50%, 0.75)", "hsla(38, 92%, 55%, 0.75)"]
+      : ["hsla(217, 91%, 50%, 0.75)", "hsla(173, 80%, 36%, 0.75)", "hsla(38, 92%, 50%, 0.75)"]
 
     const faritraBorders = dark
-      ? ["hsla(0, 0%, 70%, 1)", "hsla(0, 0%, 55%, 1)", "hsla(0, 0%, 40%, 1)"]
-      : ["hsla(0, 0%, 35%, 1)", "hsla(0, 0%, 50%, 1)", "hsla(0, 0%, 65%, 1)"]
+      ? ["hsla(217, 91%, 65%, 1)", "hsla(173, 80%, 50%, 1)", "hsla(38, 92%, 55%, 1)"]
+      : ["hsla(217, 91%, 50%, 1)", "hsla(173, 80%, 36%, 1)", "hsla(38, 92%, 50%, 1)"]
 
     chartRef.current = new Chart(ctx, {
       type: "doughnut",
@@ -208,7 +208,7 @@ export default function FaritraChart({ faritraList }: { faritraList: Faritra[] }
     <div className="rounded-xl border bg-card p-5 shadow-sm">
       <div className="mb-5 flex flex-col gap-4">
         <div className="flex items-center gap-3">
-          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#f0f0f0] text-[#404040] dark:bg-[#1a1a1a] dark:text-[#a3a3a3]">
+          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary/10 text-primary">
             <PieChart className="h-5 w-5" />
           </div>
           <div>
@@ -225,8 +225,8 @@ export default function FaritraChart({ faritraList }: { faritraList: Faritra[] }
                 key={key}
                 className={`flex cursor-pointer items-center gap-1.5 rounded-md border px-2.5 py-1.5 text-xs font-medium transition-colors ${
                   checked
-                    ? "border-foreground bg-[#f0f0f0] dark:bg-[#1a1a1a]"
-                    : "border-input text-muted-foreground hover:border-foreground/30"
+                    ? "border-primary bg-primary/10 text-primary"
+                    : "border-input text-muted-foreground hover:border-primary/30"
                 }`}
               >
                 <input
