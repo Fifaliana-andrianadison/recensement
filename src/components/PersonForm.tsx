@@ -48,8 +48,8 @@ export default function PersonForm({ _faritraId: _f, initial, onSave, onCancel }
     if (!form.datyNaterahana.trim()) e.datyNaterahana = "Ilaina ny daty naterahana"
     else if (!/^\d{2}\/\d{2}\/\d{4}$/.test(form.datyNaterahana))
       e.datyNaterahana = "Ampidiro amin'ny endrika DD/MM/YYYY"
-    if (form.vitaBatisa === "ENY" && !form.datyMandray.trim()) {
-      e.datyMandray = "Ilaina ny daty nandray raha vita batisa"
+    if (form.mpandray === "ENY" && !form.datyMandray.trim()) {
+      e.datyMandray = "Ilaina ny daty nandray raha mpandray"
     }
     if (form.datyMandray && !/^\d{2}\/\d{2}\/\d{4}$/.test(form.datyMandray))
       e.datyMandray = "Ampidiro amin'ny endrika DD/MM/YYYY"
@@ -188,7 +188,7 @@ export default function PersonForm({ _faritraId: _f, initial, onSave, onCancel }
               className="h-4 w-4 rounded border-gray-300 text-primary transition-colors focus:ring-primary"
             />
             <div>
-              <span className="text-sm font-medium">Tête de famille</span>
+              <span className="text-sm font-medium">Loham-pianakaviana</span>
               <p className="text-xs text-muted-foreground">Ny olona mitarika ny ankohonana</p>
             </div>
           </label>

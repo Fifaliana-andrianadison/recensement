@@ -43,7 +43,7 @@ export default function Navbar({ activeView, onNavigate }: NavbarProps) {
           </nav>
 
           <h1 className="text-base font-bold tracking-tight sm:hidden">
-            {isDashboard ? "Dashboard" : currentFaritra?.name}
+            {isDashboard ? "Tabilao fanaraha-maso" : currentFaritra?.name}
           </h1>
         </div>
 

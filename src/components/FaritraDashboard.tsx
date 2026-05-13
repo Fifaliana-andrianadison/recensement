@@ -42,7 +42,7 @@ const statConfig = [
   { icon: Venus, label: "Vavy" },
   { icon: Check, label: "Vita Batisa" },
   { icon: Check, label: "Mpandray" },
-  { icon: UserCheck, label: "Tête de famille" },
+  { icon: UserCheck, label: "Loham-pianakaviana" },
 ]
 
 function StatCard({ icon: Icon, label, value }: { icon: ElementType; label: string; value: number }) {
@@ -79,7 +79,7 @@ export default function FaritraDashboard({ faritraList }: { faritraList: Faritra
           <Users className="h-5 w-5" />
         </div>
         <div>
-          <h2 className="text-lg font-bold tracking-tight">Dashboard</h2>
+          <h2 className="text-lg font-bold tracking-tight">Tabilao fanaraha-maso</h2>
           <p className="text-xs text-muted-foreground">Famintinana ny faritra rehetra</p>
         </div>
       </div>

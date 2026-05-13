@@ -86,7 +86,7 @@ const metricConfig: Record<MetricKey, string> = {
   tsyBatisa: "Tsy Batisa",
   mpandray: "Mpandray",
   tsyMpandray: "Tsy Mpandray",
-  teteDeFamille: "Tête de famille",
+  teteDeFamille: "Loham-pianakaviana",
   deces: "Nodimandry",
   zaza: "Zaza (0-12)",
   tanora: "Tanora (13-25)",

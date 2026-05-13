@@ -50,7 +50,7 @@ export default function Sidebar({ activeView, onNavigate }: SidebarProps) {
             className={linkClass("dashboard") + " group"}
           >
             <LayoutDashboard className="h-4 w-4 shrink-0" />
-            <span className="flex-1 text-left">Dashboard</span>
+            <span className="flex-1 text-left">Tabilao fanaraha-maso</span>
             {activeView === "dashboard" && <ChevronRight className="h-3.5 w-3.5 animate-pulse" />}
           </button>
 

@@ -75,7 +75,7 @@ function PublipostageView({ personnes }: { personnes: Personne[] }) {
     <div className="space-y-4">
       <div className="flex items-center justify-between rounded-xl border bg-card p-4 shadow-sm print:hidden">
         <div>
-          <p className="text-sm font-semibold">Publipostage — {tetes.length} tête(s) de famille</p>
+          <p className="text-sm font-semibold">Publipostage — {tetes.length} loham-pianakaviana</p>
           <p className="text-xs text-muted-foreground">Tsindrio ny Imprimer mba hamoaka PDF</p>
         </div>
         <button
@@ -90,7 +90,7 @@ function PublipostageView({ personnes }: { personnes: Personne[] }) {
       <div ref={printRef} className="publipostage-print">
         {tetes.length === 0 ? (
           <p className="py-12 text-center text-muted-foreground print:hidden">
-            Tsy misy tête de famille
+            Tsy misy loham-pianakaviana
           </p>
         ) : (
           <div className="publipostage-grid">
@@ -138,25 +138,29 @@ export default function FaritraTable({ personnes, faritraId }: FaritraTableProps
     reader.onload = (ev) => {
       try {
         const data = new Uint8Array(ev.target?.result as ArrayBuffer)
-        const wb = XLSX.read(data, { type: "array" })
+        const wb = XLSX.read(data, { type: "array", cellStyles: true })
         const ws = wb.Sheets[wb.SheetNames[0]]
-        const rows = XLSX.utils.sheet_to_json<(string | number | undefined)[]>(ws, { header: 1 })
+        const ref = ws["!ref"]
+        if (!ref) return
+        const range = XLSX.utils.decode_range(ref)
         let count = 0
-        for (let i = 1; i < rows.length; i++) {
-          const r = rows[i]
-          if (!r || !r[1]?.toString().trim()) continue
-          const teteRaw = r[9]?.toString().trim().toLowerCase() || ""
-          const isTete = ["eny", "oui", "1", "true", "x", "✓", "o"].includes(teteRaw)
+        for (let row = range.s.r + 1; row <= range.e.r; row++) {
+          const cellName = XLSX.utils.encode_cell({ r: row, c: 1 })
+          const cell = ws[cellName]
+          const name = cell?.v?.toString().trim()
+          if (!name) continue
+          const isBold = cell?.s?.font?.bold === true
+          const readStr = (col: number) => ws[XLSX.utils.encode_cell({ r: row, c: col })]?.v?.toString().trim() || ""
           addPersonne(faritraId, {
-            anarana: r[1]?.toString().trim() || "",
-            datyNaterahana: r[2]?.toString().trim() || "",
-            lahyVavy: (r[3]?.toString().trim() === "L" ? "L" : "v") as "L" | "v",
-            vitaBatisa: (r[4]?.toString().trim() === "ENY" ? "ENY" : "TSIA") as "ENY" | "TSIA",
-            mpandray: (r[5]?.toString().trim() === "ENY" ? "ENY" : "TSIA") as "ENY" | "TSIA",
-            datyMandray: r[6]?.toString().trim() || "",
-            tel: r[7]?.toString().trim() || "",
-            adiresy: r[8]?.toString().trim() || "",
-            teteDeFamille: isTete,
+            anarana: name,
+            datyNaterahana: readStr(2),
+            lahyVavy: (readStr(3) === "L" ? "L" : "v") as "L" | "v",
+            vitaBatisa: (readStr(4) === "ENY" ? "ENY" : "TSIA") as "ENY" | "TSIA",
+            mpandray: (readStr(5) === "ENY" ? "ENY" : "TSIA") as "ENY" | "TSIA",
+            datyMandray: readStr(6),
+            tel: readStr(7),
+            adiresy: readStr(8),
+            teteDeFamille: isBold,
             deces: false,
           })
           count++
@@ -267,7 +271,7 @@ export default function FaritraTable({ personnes, faritraId }: FaritraTableProps
                 return (
                   <tr key={p.id}>
                     <td style={{textAlign:"center"}}>{p.id}</td>
-                    <td>{p.anarana}{p.teteDeFamille ? " (Tête)" : ""}</td>
+                    <td>{p.anarana}{p.teteDeFamille ? " (Loham-pianakaviana)" : ""}</td>
                     <td>{p.datyNaterahana}</td>
                     <td style={{textAlign:"center"}}>{age}</td>
                     <td style={{textAlign:"center"}}>{p.lahyVavy === "L" ? "L" : "V"}</td>
@@ -436,7 +440,7 @@ export default function FaritraTable({ personnes, faritraId }: FaritraTableProps
                     }}
                     className="h-3.5 w-3.5 rounded border-gray-300 text-primary focus:ring-primary"
                   />
-                  <span className="text-xs font-medium">Tête de famille</span>
+                  <span className="text-xs font-medium">Loham-pianakaviana</span>
                 </label>
 
                 <label className="flex h-9 cursor-pointer items-center gap-1.5 rounded-md border px-2.5 text-sm transition-colors hover:bg-primary/5 data-[checked=true]:border-primary data-[checked=true]:bg-primary/10"
@@ -562,7 +566,7 @@ export default function FaritraTable({ personnes, faritraId }: FaritraTableProps
                           <div className="flex items-center gap-1">
                             {isHead && !isDeces && (
                               <span className="inline-flex items-center rounded border border-primary/20 bg-primary/10 px-1 py-0 text-[9px] font-semibold text-primary">
-                                Tête
+                                Loham-pianakaviana
                               </span>
                             )}
                             {isDeces && <DecesBadge />}
